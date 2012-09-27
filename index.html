@@ -1,0 +1,125 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html ng-app>
+    <head>
+        <title>Angular Testing</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/styles.css" />
+    </head>
+    <body ng:controller="RouteCtrl">
+        <div class="modal" ng-show="modalIsVisible">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="closeModal()">×</button>
+                <h3>{{title}}</h3>
+            </div>
+            <div class="modal-body">
+                <p class="error" ng-show="errorIsVisible" ng-bind-html-unsafe="errors"></p>
+                <p>
+                    <form id="userForm" name="userForm" action="javascript: function () {return false;}">
+                        <label for="firstname">Firstname<em>*</em></label>
+                        <input type="text" name="firstname" id="firstname" value="{{firstname}}" class="required greaterthan-2" />
+                        <label for="lastname">Lastname<em>*</em></label>
+                        <input type="text" name="lastname" id="lastname" value="{{lastname}}" class="required greaterthan-2" />
+                        <label for="birthday">Birthday<em>*</em></label>
+                        <input type="text" name="birthday" id="birthday" value="{{birthday}}" class="required birthdate" />
+                        <label for="address">Address</label>
+                        <input type="text" name="address" id="address" value="{{address}}" />
+                        <label for="zip">Zip Code</label>
+                        <input type="text" name="zip" id="zip" value="{{zip}}" />
+                        <label for="phone">Phone<em>*</em></label>
+                        <input type="text" name="phone" id="phone" value="{{phone}}" class="required phone" />
+                    </form>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <div class="buttons">
+                    <button ng-click="saveUser()"><span>Save</span></button>
+                    <button ng-click="closeModal()"><span>Cancel</span></button>
+                </div>
+            </div>
+        </div>
+        <div class="modal" ng-show="filterIsVisible">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="closeFilter()">×</button>
+                <h3>Contact's filter</h3>
+            </div>
+            <div class="modal-body">
+                <p class="error" ng-bind-html-unsafe="filtersError"></p>
+                <p>
+                    <form id="filterForm" name="filterForm" action="javascript: function () {return false;}">
+                        <label for="filterfirstname">Firstname</label>
+                        <input type="text" name="filterfirstname" id="filterfirstname" value="" />
+                        <label for="filterlastname">Lastname</label>
+                        <input type="text" name="filterlastname" id="filterlastname" value="" />
+                        <label for="birthday-type">Birthday</label>
+                        <select id="birthday-type" name="birthday-type">
+                            <option value="equal">Equals</option>
+                            <option value="greater">Greater</option>
+                            <option value="lower">Lower</option>
+                        </select>
+                        <input type="text" name="filterbirthday" id="filterbirthday" value="" />
+                        <label for="filteraddress">Address</label>
+                        <input type="text" name="filteraddress" id="filteraddress" value="" />
+                        <label for="filterzip">Zip Code</label>
+                        <input type="text" name="filterzip" id="filterzip" value="" />
+                        <label for="filterphone">Phone</label>
+                        <input type="text" name="filterphone" id="filterphone" value="" />
+                    </form>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <div class="buttons">
+                    <button ng-click="filter()"><span>Filter</span></button>
+                    <button ng-click="resetFilter()"><span>Reset</span></button>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <h1>Contacts</h1>
+            <div class="buttons">
+                <button id="remove-all-button" ng-click="removeSelected()"><span>Remove</span></button>
+                <button id="add-button" ng-click="add()"><span>Add</span></button>
+            </div>
+            <table class="table table-bordered">
+                <tr>
+                    <th><input type="checkbox" ng-click="selectAll($event)" id="select-all-checkbox" /></th>
+                    <th>ID</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Birthday</th>
+                    <th>Address</th>
+                    <th>ZipCode</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                </tr>
+                <tr ng-repeat="user in users" class="user-{{user.show}}">
+                    <td><input type="checkbox" ng-checked="isSelected(user.id)" ng-click="updateSelection($event, user.id)" /></td>
+                    <td>{{user.id}}</td>
+                    <td>{{user.firstname}}</td>
+                    <td>{{user.lastname}}</td>
+                    <td>{{user.birthday}}</td>
+                    <td>{{user.address}}</td>
+                    <td>{{user.zip}}</td>
+                    <td>{{user.phone}}</td>
+                    <td>
+                        <a href="javascript: void(0);" ng-click="edit(user)">Edit</a>
+                        <a href="javascript: void(0);" ng-click="remove(user.id)">Remove</a>
+                    </td>
+                </tr>
+            </table>
+            <div class="buttons">
+                <button id="filter-button" ng-click="openFilter()"><span>Filter</span></button>
+            </div>
+        </div>
+        <!--<script type="text/javascript" src="js/requirejs.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>-->
+        <script type="text/javascript" src="js/angular-1.0.2/angular.min.js"></script>
+        <script type="text/javascript" src="js/user.js"></script>
+        <script type="text/javascript" src="js/validate.js"></script>
+        <script type="text/javascript" src="js/controllers.js"></script>
+    </body>
+</html>
